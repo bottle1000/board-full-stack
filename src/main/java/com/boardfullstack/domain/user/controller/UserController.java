@@ -19,7 +19,7 @@ public class UserController {
 
     private final UserService userService;
 
-    @PostMapping("/signUp")
+    @PostMapping("/signup")
     public ApiResponse<SignUpResponse> signUp (@Valid @RequestBody SignUpRequest request) {
         return ApiResponse.ok(userService.signUp(request));
     }
