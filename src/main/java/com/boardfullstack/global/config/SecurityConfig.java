@@ -1,6 +1,8 @@
 package com.boardfullstack.global.config;
 
 import com.boardfullstack.global.jwt.JwtFilter;
+import com.boardfullstack.global.jwt.JwtProvider;
+import com.boardfullstack.global.security.CustomDetailsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -21,7 +23,8 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @RequiredArgsConstructor
 public class SecurityConfig {
 
-    private final JwtFilter jwtFilter;
+    private final JwtProvider jwtProvider;
+    private final CustomDetailsService customDetailsService;
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -42,7 +45,7 @@ public class SecurityConfig {
                         ).permitAll()
                         .anyRequest().authenticated()
                 )
-                .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(new JwtFilter(jwtProvider, customDetailsService), UsernamePasswordAuthenticationFilter.class)
                 .cors(Customizer.withDefaults());
 
         return http.build();
