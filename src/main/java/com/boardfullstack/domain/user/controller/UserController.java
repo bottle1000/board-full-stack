@@ -1,12 +1,13 @@
 package com.boardfullstack.domain.user.controller;
 
+import com.boardfullstack.domain.user.dto.request.LoginRequest;
 import com.boardfullstack.domain.user.dto.request.SignUpRequest;
+import com.boardfullstack.domain.user.dto.response.LoginResponse;
 import com.boardfullstack.domain.user.dto.response.SignUpResponse;
 import com.boardfullstack.domain.user.service.UserService;
 import com.boardfullstack.global.common.response.ApiResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,5 +23,10 @@ public class UserController {
     @PostMapping("/signup")
     public ApiResponse<SignUpResponse> signUp (@Valid @RequestBody SignUpRequest request) {
         return ApiResponse.ok(userService.signUp(request));
+    }
+
+    @PostMapping("/login")
+    public ApiResponse<LoginResponse> login(@Valid @RequestBody LoginRequest request) {
+        return ApiResponse.ok(userService.login(request));
     }
 }
