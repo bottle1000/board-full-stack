@@ -1,6 +1,7 @@
 package com.boardfullstack.domain.post.controller;
 
 import com.boardfullstack.domain.post.dto.request.PostCreateRequest;
+import com.boardfullstack.domain.post.dto.request.PostUpdateRequest;
 import com.boardfullstack.domain.post.dto.response.PostResponse;
 import com.boardfullstack.domain.post.service.PostService;
 import com.boardfullstack.global.common.response.ApiResponse;
@@ -28,6 +29,21 @@ public class PostController {
     public ApiResponse<PostResponse> getPost(@PathVariable Long postId) {
         PostResponse post = postService.getPost(postId);
         return ApiResponse.ok(post);
+    }
+
+    @PutMapping("/{postId}")
+    public ApiResponse<PostResponse> updatePost(@PathVariable Long postId,
+                                                @RequestBody @Valid PostUpdateRequest request,
+                                                @AuthenticationPrincipal UserPrincipal principal) {
+        PostResponse post = postService.updatePost(principal.getId(), postId, request);
+        return ApiResponse.ok(post);
+    }
+
+    @DeleteMapping("/{postId}")
+    public ApiResponse<Void> deletePost(@PathVariable Long postId,
+                                        @AuthenticationPrincipal UserPrincipal principal) {
+        postService.deletePost(principal.getId(), postId);
+        return ApiResponse.ok(null);
     }
 }
 

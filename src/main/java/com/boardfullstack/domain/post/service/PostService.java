@@ -1,6 +1,7 @@
 package com.boardfullstack.domain.post.service;
 
 import com.boardfullstack.domain.post.dto.request.PostCreateRequest;
+import com.boardfullstack.domain.post.dto.request.PostUpdateRequest;
 import com.boardfullstack.domain.post.dto.response.PostResponse;
 import com.boardfullstack.domain.post.entity.Post;
 import com.boardfullstack.domain.post.repository.PostRepository;
@@ -36,5 +37,34 @@ public class PostService {
                 .orElseThrow(() -> new CustomException(ErrorCode.POST_NOT_FOUND));
 
         return PostResponse.from(post);
+    }
+
+    @Transactional
+    public PostResponse updatePost(Long principalId, Long postId, PostUpdateRequest request) {
+        Post post = getActivePostOrThrow(postId);
+        validateAuthorOrThrow(post, principalId);
+
+        post.update(request.getTitle(), request.getContent());
+        return PostResponse.from(post);
+    }
+
+    @Transactional
+    public void deletePost(Long principalId, Long postId) {
+        Post post = getActivePostOrThrow(postId);
+        validateAuthorOrThrow(post, principalId);
+
+        post.softDelete();
+    }
+
+    private Post getActivePostOrThrow(Long postId) {
+        return postRepository.findPostByIdAndDeletedFalse(postId)
+                .orElseThrow(() -> new CustomException(ErrorCode.POST_NOT_FOUND));
+    }
+
+    private void validateAuthorOrThrow(Post post, Long principalId) {
+        Long authorId = post.getAuthor().getId();
+        if (!authorId.equals(principalId)) {
+            throw new CustomException(ErrorCode.POST_FORBIDDEN);
+        }
     }
 }
