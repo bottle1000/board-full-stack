@@ -7,9 +7,14 @@ import com.boardfullstack.domain.post.entity.Post;
 import com.boardfullstack.domain.post.repository.PostRepository;
 import com.boardfullstack.domain.user.entity.User;
 import com.boardfullstack.domain.user.repository.UserRepository;
+import com.boardfullstack.global.common.response.PagedResponse;
 import com.boardfullstack.global.exception.CustomException;
 import com.boardfullstack.global.exception.ErrorCode;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -33,10 +38,27 @@ public class PostService {
 
     @Transactional(readOnly = true)
     public PostResponse getPost(Long postId) {
-        Post post = postRepository.findPostByIdAndDeletedFalse(postId)
-                .orElseThrow(() -> new CustomException(ErrorCode.POST_NOT_FOUND));
+        Post post = getActivePostOrThrow(postId);
 
         return PostResponse.from(post);
+    }
+
+    @Transactional(readOnly = true)
+    public PagedResponse<PostResponse> getPosts(int page, int size) {
+
+        if (page < 0) {
+            throw new CustomException(ErrorCode.INVALID_REQUEST, "page는 0 이상이여야 합니다.");
+        }
+
+        if (size <= 0 || size >= 50) {
+            throw new CustomException(ErrorCode.INVALID_REQUEST, "size는 1~50 사이여야 합니다.");
+        }
+
+        Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "createdAt"));
+        Page<PostResponse> posts = postRepository.findAllByDeletedFalse(pageable)
+                .map(PostResponse::from);
+
+        return PagedResponse.from(posts);
     }
 
     @Transactional
@@ -67,4 +89,5 @@ public class PostService {
             throw new CustomException(ErrorCode.POST_FORBIDDEN);
         }
     }
+
 }

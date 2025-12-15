@@ -5,6 +5,7 @@ import com.boardfullstack.domain.post.dto.request.PostUpdateRequest;
 import com.boardfullstack.domain.post.dto.response.PostResponse;
 import com.boardfullstack.domain.post.service.PostService;
 import com.boardfullstack.global.common.response.ApiResponse;
+import com.boardfullstack.global.common.response.PagedResponse;
 import com.boardfullstack.global.security.UserPrincipal;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -29,6 +30,15 @@ public class PostController {
     public ApiResponse<PostResponse> getPost(@PathVariable Long postId) {
         PostResponse post = postService.getPost(postId);
         return ApiResponse.ok(post);
+    }
+
+    @GetMapping
+    public ApiResponse<PagedResponse<PostResponse>> getPosts(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size) {
+        PagedResponse<PostResponse> posts = postService.getPosts(page, size);
+
+        return ApiResponse.ok(posts);
     }
 
     @PutMapping("/{postId}")
