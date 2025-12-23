@@ -27,7 +27,11 @@ public enum ErrorCode {
 
     // 댓글
     COMMENT_NOT_FOUND(HttpStatus.NOT_FOUND, "COMMENT_NOT_FOUND", "댓글을 찾을 수 없습니다."),
-    COMMENT_FORBIDDEN(HttpStatus.FORBIDDEN, "COMMENT_FORBIDDEN", "이 댓글을 수정/삭제할 권한이 없습니다.");
+    COMMENT_FORBIDDEN(HttpStatus.FORBIDDEN, "COMMENT_FORBIDDEN", "이 댓글을 수정/삭제할 권한이 없습니다."),
+
+    // 좋아요
+    POST_LIKE_ALREADY_EXISTS(HttpStatus.CONFLICT, "POST_LIKE_ALREADY_EXISTS", "이미 좋아요한 게시글입니다."),
+    POST_LIKE_NOT_FOUND(HttpStatus.NOT_FOUND, "POST_LIKE_NOT_FOUND", "좋아요를 찾을 수 없습니다.");
 
 
     private final HttpStatus status;
