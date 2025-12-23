@@ -1,5 +1,6 @@
 package com.boardfullstack.domain.post.controller;
 
+import com.boardfullstack.domain.like.service.PostLikeService;
 import com.boardfullstack.domain.post.dto.request.PostCreateRequest;
 import com.boardfullstack.domain.post.dto.request.PostUpdateRequest;
 import com.boardfullstack.domain.post.dto.response.PostResponse;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 public class PostController {
 
     private final PostService postService;
+    private final PostLikeService postLikeService;
 
     @PostMapping
     public ApiResponse<PostResponse> createPost(@AuthenticationPrincipal UserPrincipal principal,
@@ -53,6 +55,20 @@ public class PostController {
     public ApiResponse<Void> deletePost(@PathVariable Long postId,
                                         @AuthenticationPrincipal UserPrincipal principal) {
         postService.deletePost(principal.getId(), postId);
+        return ApiResponse.ok(null);
+    }
+
+    @PostMapping("/{postId}/like")
+    public ApiResponse<Void> likePost(@PathVariable Long postId,
+                                      @AuthenticationPrincipal UserPrincipal principal) {
+        postLikeService.likePost(principal.getId(), postId);
+        return ApiResponse.ok(null);
+    }
+
+    @DeleteMapping("/{postId}/like")
+    public ApiResponse<Void> unlikePost(@PathVariable Long postId,
+                                        @AuthenticationPrincipal UserPrincipal principal) {
+        postLikeService.unlikePost(principal.getId(), postId);
         return ApiResponse.ok(null);
     }
 }

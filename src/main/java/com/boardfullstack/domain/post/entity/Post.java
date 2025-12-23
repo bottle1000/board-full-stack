@@ -30,6 +30,9 @@ public class Post {
     @Column(nullable = false)
     private String content;
 
+    @Column(name = "like_count", nullable = false)
+    private int likeCount = 0;
+
     @Column(name = "is_deleted", nullable = false)
     private boolean deleted = false;
 
@@ -44,11 +47,22 @@ public class Post {
         post.author = author;
         post.title = title;
         post.content = content;
+        post.likeCount = 0;
         post.deleted = false;
         post.createdAt = LocalDateTime.now();
         post.updatedAt = LocalDateTime.now();
 
         return post;
+    }
+
+    public void increaseLikeCount() {
+        this.likeCount++;
+    }
+
+    public void decreaseLikeCount() {
+        if (this.likeCount > 0) {
+            this.likeCount--;
+        }
     }
 
     public void update(String title, String content) {
