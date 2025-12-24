@@ -44,17 +44,12 @@ public class PostService {
     }
 
     @Transactional(readOnly = true)
-    public PagedResponse<PostResponse> getPosts(int page, int size) {
+    public PagedResponse<PostResponse> getPosts(Pageable pageable) {
 
-        if (page < 0) {
-            throw new CustomException(ErrorCode.INVALID_REQUEST, "page는 0 이상이여야 합니다.");
+        if (pageable.getPageSize() > 50) {
+            throw new CustomException(ErrorCode.INVALID_REQUEST, "size는 최대 50까지 가능합니다.");
         }
 
-        if (size <= 0 || size >= 50) {
-            throw new CustomException(ErrorCode.INVALID_REQUEST, "size는 1~50 사이여야 합니다.");
-        }
-
-        Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "createdAt"));
         Page<PostResponse> posts = postRepository.findAllByDeletedFalse(pageable)
                 .map(PostResponse::from);
 

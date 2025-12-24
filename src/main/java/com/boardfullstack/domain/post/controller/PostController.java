@@ -10,6 +10,9 @@ import com.boardfullstack.global.common.response.PagedResponse;
 import com.boardfullstack.global.security.UserPrincipal;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
@@ -36,9 +39,8 @@ public class PostController {
 
     @GetMapping
     public ApiResponse<PagedResponse<PostResponse>> getPosts(
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "10") int size) {
-        PagedResponse<PostResponse> posts = postService.getPosts(page, size);
+            @PageableDefault(size = 20, sort = "createdAt", direction = Sort.Direction.DESC) Pageable pageable) {
+        PagedResponse<PostResponse> posts = postService.getPosts(pageable);
 
         return ApiResponse.ok(posts);
     }
