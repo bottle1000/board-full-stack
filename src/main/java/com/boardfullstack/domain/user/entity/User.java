@@ -51,4 +51,8 @@ public class User {
 
         return user;
     }
+
+    public void changeStatus(Status status) {
+        this.status = status;
+    }
 }
