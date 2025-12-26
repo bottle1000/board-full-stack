@@ -26,7 +26,13 @@ public class AdminController {
         return ApiResponse.ok(null);
     }
 
-    // unban
+    @PreAuthorize("hasRole('ADMIN')")
+    @PatchMapping("/users/{userId}/unban")
+    public ApiResponse<Void> unbanUser(@PathVariable Long userId) {
+        adminService.unbanUser(userId);
+
+        return ApiResponse.ok(null);
+    }
 
     @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/users")

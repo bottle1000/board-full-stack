@@ -32,7 +32,16 @@ public class AdminService {
         user.changeStatus(Status.BANNED);
     }
 
-    // unban 기능 추가하기
+    @Transactional
+    public void unbanUser(Long userId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new CustomException(ErrorCode.USER_NOT_FOUND));
+
+        if (user.getStatus() == Status.ACTIVE) {
+            throw new CustomException(ErrorCode.USER_ALREADY_ACTIVE);
+        }
+        user.changeStatus(Status.ACTIVE);
+    }
 
     @Transactional(readOnly = true)
     public PagedResponse<UserListResponse> getUsers(Pageable pageable) {

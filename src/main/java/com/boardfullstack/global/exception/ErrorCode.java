@@ -20,6 +20,7 @@ public enum ErrorCode {
     // 사용자
     USER_NOT_FOUND(HttpStatus.NOT_FOUND, "USER_NOT_FOUND", "사용자를 찾을 수 없습니다."),
     USER_BANNED(HttpStatus.FORBIDDEN, "USER_BANNED", "정지된 사용자입니다."),
+    USER_ALREADY_ACTIVE(HttpStatus.CONFLICT, "USER_ALREADY_ACTIVE", "이미 활동 중인 사용자입니다."),
 
     // 게시글
     POST_NOT_FOUND(HttpStatus.NOT_FOUND, "POST_NOT_FOUND", "게시글을 찾을 수 없습니다."),
