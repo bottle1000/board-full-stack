@@ -33,7 +33,7 @@ public class Comment {
     private String content;
 
     @Column(name = "is_deleted", nullable = false)
-    private boolean isDeleted = false;
+    private boolean deleted = false;
 
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
@@ -46,7 +46,7 @@ public class Comment {
         comment.author = author;
         comment.post = post;
         comment.content = content;
-        comment.isDeleted = false;
+        comment.deleted = false;
         comment.createdAt = LocalDateTime.now();
         comment.updatedAt = LocalDateTime.now();
 
@@ -59,7 +59,7 @@ public class Comment {
     }
 
     public void softDelete() {
-        this.isDeleted = true;
+        this.deleted = true;
         this.updatedAt = LocalDateTime.now();
     }
 }

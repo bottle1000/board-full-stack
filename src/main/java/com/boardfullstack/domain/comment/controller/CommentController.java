@@ -26,7 +26,7 @@ public class CommentController {
         return ApiResponse.ok(commentService.createComment(principal.getId(), postId, request));
     }
 
-    @GetMapping
+    @GetMapping("/comments")
     public ApiResponse<List<CommentResponse>> getComments(@PathVariable Long postId) {
         return ApiResponse.ok(commentService.getComments(postId));
     }
