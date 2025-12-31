@@ -9,7 +9,11 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "post")
+@Table(
+        name = "post",
+        indexes = {
+                @Index(name = "idx_post_filter_sort", columnList = "is_deleted, created_at")
+        })
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 public class Post {
