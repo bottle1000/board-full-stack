@@ -51,7 +51,7 @@ public class PostLikeService {
     }
 
     private Post getActivePostOrThrow(Long postId) {
-        return postRepository.findPostByIdAndDeletedFalse(postId)
+        return postRepository.findPostByIdAndDeletedFalseWithLock(postId)
                 .orElseThrow(() -> new CustomException(ErrorCode.POST_NOT_FOUND));
     }
 
