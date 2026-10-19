@@ -1,0 +1,99 @@
+{
+  "date": "2026-10-19",
+  "execution_actor": "지원자 직접 Postman·SQL 실행 및 캡처",
+  "review_actor": "AI 제출 자료 대조",
+  "post_id": 100013,
+  "author_name": "QA A",
+  "author_id": 10316,
+  "request_context_confirmation": "사용자가 수정·삭제 요청 모두 postId=100013, 작성자 A와 다른 일반 계정 B 토큰으로 실행했다고 명시 확인",
+  "base_url": null,
+  "B_user_id": null,
+  "source_version": null,
+  "create": {
+    "status": 200,
+    "response_timestamp": "2026-10-19T16:42:53.036402"
+  },
+  "update_attempt": {
+    "method": "PUT",
+    "path": "/api/posts/100013",
+    "body": {
+      "title": "QA-A06 변경 시도",
+      "content": "QA-A06 B의 변경 시도"
+    },
+    "status": 403,
+    "error_code": "POST_FORBIDDEN",
+    "data": null,
+    "response_timestamp": "2026-10-19T16:51:53.962164"
+  },
+  "delete_attempt": {
+    "method": "DELETE",
+    "path": "/api/posts/100013",
+    "status": 403,
+    "error_code": "POST_FORBIDDEN",
+    "data": null,
+    "response_timestamp": "2026-10-19T16:53:07.420102"
+  },
+  "sql": {
+    "before": {
+      "post_id": 100013,
+      "author_id": 10316,
+      "title": "QA-A06 원본 제목",
+      "content": "QA-A06 원본 내용",
+      "is_deleted": 0
+    },
+    "after_update": {
+      "post_id": 100013,
+      "author_id": 10316,
+      "title": "QA-A06 원본 제목",
+      "content": "QA-A06 원본 내용",
+      "is_deleted": 0
+    },
+    "after_delete": {
+      "post_id": 100013,
+      "author_id": 10316,
+      "title": "QA-A06 원본 제목",
+      "content": "QA-A06 원본 내용",
+      "is_deleted": 0
+    }
+  },
+  "verdict": "선정한 타인 수정·삭제 요청 2건의 접근 차단 및 원본 유지 기대결과 일치",
+  "time_note": "응답 timestamp를 그대로 기록. 타임존 오프셋 미표기·SQL 조회 시각 미확인",
+  "limits": [
+    "실제 postId 변수값과 B 계정 선택은 사용자 명시 확인으로 연결",
+    "구체 baseUrl·B 사용자ID·소스 버전 미확인",
+    "토큰 원문은 수집하지 않음",
+    "기존 15건 및 총35건의 과거 결과와 별도; 전체 재실행·보안 검증을 뜻하지 않음"
+  ],
+  "attachments": [
+    {
+      "file": "API01_A생성_200.png",
+      "source_attachment": "codex-clipboard-1479223c-aa00-4a07-a5b0-6c6b73b1008f.png",
+      "sha256": "88bb41985bdbe28c1a8549754c8470754203cfd33fd6e6db43d76b35a11f73a5"
+    },
+    {
+      "file": "DB01_요청전.png",
+      "source_attachment": "codex-clipboard-c58325d8-2fac-4f56-a741-ba2100564962.png",
+      "sha256": "d59256ecb13ff802ffa9d4705ce699feb7ac02cc2a069beb788420d91f415a3b"
+    },
+    {
+      "file": "API09_B수정_403.png",
+      "source_attachment": "codex-clipboard-3f857242-3397-453d-a2c1-bff2e6f98710.png",
+      "sha256": "d4bcc275bcf8b46feccb5d8515de56fabc86ac772c74cfb66d6bcbc410aff1c3"
+    },
+    {
+      "file": "DB02_수정시도후.png",
+      "source_attachment": "codex-clipboard-b82fdaae-49cb-4a62-8f64-e6b069e92e4b.png",
+      "sha256": "7337932c21b61a9a3306b7b061c5191ac8317468445c1abbdb4215f239eae37c"
+    },
+    {
+      "file": "API10_B삭제_403.png",
+      "source_attachment": "codex-clipboard-6a1da155-c54d-48aa-83d1-3066f1686d08.png",
+      "sha256": "79fd76111f527313b212b9bd123973ffcddb651e8456bbe5c6af3acbed259b11"
+    },
+    {
+      "file": "DB03_삭제시도후.png",
+      "source_attachment": "codex-clipboard-68f2196c-2e54-477f-b590-4e97da80be42.png",
+      "sha256": "1e6eee2c8884e26d0736f04be4d5a72782883debeddd3fedccb4a3cff9c3cb87"
+    }
+  ]
+}

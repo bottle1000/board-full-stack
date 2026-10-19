@@ -1,0 +1,62 @@
+{
+  "execution_date": "2026-10-19",
+  "date_basis": "사용자 명시 확인",
+  "post_id": 100013,
+  "post_id_basis": "사용자 설명·요청 변수 팝업·SQL 일치",
+  "execution_actor": "지원자 직접 실행·캡처",
+  "review_actor": "AI 첨부 자료 대조",
+  "delete": {
+    "method": "DELETE",
+    "path": "/api/posts/100013",
+    "request_label": "API14 A 본인 글 삭제",
+    "status": 200,
+    "success": true,
+    "data": null,
+    "error": null,
+    "response_timestamp": "2026-10-19T16:59:06.864518"
+  },
+  "sql_after": {
+    "post_id": 100013,
+    "author_id": 10316,
+    "title": "QA-A06 원본 제목",
+    "content": "QA-A06 원본 내용",
+    "is_deleted": 1,
+    "row_count": 1
+  },
+  "get_after": {
+    "method": "GET",
+    "path": "/api/posts/100013",
+    "request_label": "API02 게시글 단건 조회",
+    "mapped_case": "API15 삭제된 글 조회",
+    "status": 404,
+    "success": false,
+    "data": null,
+    "error_code": "POST_NOT_FOUND",
+    "response_timestamp": "2026-10-19T17:00:22.319113"
+  },
+  "before_evidence": "../게시판_타인권한_직접검증_20261019/DB03_삭제시도후.png",
+  "verdict": "삭제200・논리삭제0→1・같은글조회404 기대결과 일치",
+  "limits": [
+    "요청명은 A 본인 글 삭제; 토큰 내용·인증 주체는 캡처로 독립 확인하지 않음",
+    "응답 시각에 타임존 오프셋 없음; SQL 조회 시각 미확인",
+    "baseUrl 실제 주소·소스 버전 미확인",
+    "기존35건·과거API14/15 결과와 별도"
+  ],
+  "attachments": [
+    {
+      "file": "API14_삭제200.png",
+      "sha256": "2929023b39494dad105dcaac903e44ac5b0b013e65d43cd06d3918020f146c91",
+      "source_attachment": "codex-clipboard-160a4ec4-6321-4436-9dfe-20394074f512.png"
+    },
+    {
+      "file": "DB01_삭제후_상태1.png",
+      "sha256": "5f695fc36fe4b34fd4bbd75e9836ece5c9f83389f0ae226bd5485cc59eda0931",
+      "source_attachment": "codex-clipboard-f4923355-990b-4651-8305-6b43ebad70b8.png"
+    },
+    {
+      "file": "API15_삭제후조회404.png",
+      "sha256": "57dccfa54ffc33caa1bc869e0d02974bb743e21a8154f37f2c36d4759f4d1b28",
+      "source_attachment": "codex-clipboard-088955df-18c6-4ef5-a713-4dc28bea2b1a.png"
+    }
+  ]
+}

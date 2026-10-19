@@ -1,0 +1,65 @@
+{
+  "date": "2026-10-19",
+  "date_basis": "응답 timestamp",
+  "execution_actor": "지원자 Postman 직접 실행·캡처",
+  "review_actor": "AI 제출 자료 대조",
+  "method": "GET",
+  "path": "/api/posts",
+  "cases": [
+    {
+      "id": "A08-LIST50",
+      "source_request_label": "API16 목록 size 정상",
+      "query": {
+        "page": 0,
+        "size": 50
+      },
+      "status": 200,
+      "error": null,
+      "pageInfo": {
+        "page": 0,
+        "size": 50,
+        "totalElements": 100010,
+        "totalPage": 2001,
+        "hasNext": true,
+        "hsaPrevious": false
+      },
+      "response_timestamp": "2026-10-19T19:25:58.314646",
+      "items_count": null,
+      "verdict": "요청 허용·페이지 크기 기대값 일치"
+    },
+    {
+      "id": "A08-LIST51",
+      "source_request_label": "API13 목록 size 51 차단",
+      "query": {
+        "page": 0,
+        "size": 51
+      },
+      "status": 400,
+      "success": false,
+      "data": null,
+      "error_code": "COMMON_INVALID_REQUEST",
+      "message": "size는 최대 50까지 가능합니다.",
+      "response_timestamp": "2026-10-19T19:26:59.225496",
+      "verdict": "최대값 초과 차단 기대값 일치"
+    }
+  ],
+  "limits": [
+    "50 응답의 전체 items 배열·success 필드는 캡처에 보이지 않음",
+    "DB총건수·실제 items 개수는 독립 검증하지 않음",
+    "응답시각 타임존 오프셋·baseUrl·소스 버전·토큰의 계정 동일성은 독립 확인하지 않음",
+    "1회 요청 응답시간·전체건수로 부하 성능을 주장하지 않음",
+    "기존15건·전체35건 결과와 별도"
+  ],
+  "attachments": [
+    {
+      "file": "LIST51_초과_400.png",
+      "source_attachment": "codex-clipboard-de09bd0d-5643-49ce-9e9a-5bebd393664a.png",
+      "sha256": "d910bb30dbc9a384ad06cb49c5f30434c1390c9e4ab795d4870bc64638624297"
+    },
+    {
+      "file": "LIST50_허용_200.png",
+      "source_attachment": "codex-clipboard-5508c78e-dd5a-465d-b7e9-aff32768b59b.png",
+      "sha256": "aed44527d65512f6f091bfc8970a3d7971e67b17adeadd9a8676f02fb6b6d902"
+    }
+  ]
+}
