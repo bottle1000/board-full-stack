@@ -4,6 +4,7 @@ import com.boardfullstack.global.common.response.ApiResponse;
 import com.boardfullstack.global.common.response.ErrorResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -42,6 +43,13 @@ public class GlobalExceptionHandler {
         );
 
         return ResponseEntity.status(ErrorCode.INVALID_REQUEST.getStatus()).body(ApiResponse.error(errorResponse));
+    }
+
+    @ExceptionHandler(AccessDeniedException.class)
+    public ResponseEntity<ApiResponse<?>> handleAccessDeniedException(AccessDeniedException e) {
+        ErrorCode errorCode = ErrorCode.AUTH_FORBIDDEN;
+        ErrorResponse errorResponse = ErrorResponse.of(errorCode.getCode(), errorCode.getMessage());
+        return ResponseEntity.status(errorCode.getStatus()).body(ApiResponse.error(errorResponse));
     }
 
     @ExceptionHandler(Exception.class)

@@ -1,0 +1,81 @@
+{
+  "date": "2026-10-20",
+  "executor": "AI agent",
+  "kind": "MockMvc method security and exception mapping regression",
+  "base_commit": "08c06cd92015444d5b6fa06ba07e1b9d0c931cf2",
+  "external_database": false,
+  "jwt_filter": false,
+  "admin_service": "Mockito mock",
+  "before": {
+    "tests": 5,
+    "failures": 1,
+    "errors": 0,
+    "skipped": 0,
+    "cases": [
+      {
+        "test": "validationStillGets400()",
+        "result": "PASS",
+        "failure": null
+      },
+      {
+        "test": "realInternalErrorStillGets500WithoutExceptionDetails()",
+        "result": "PASS",
+        "failure": null
+      },
+      {
+        "test": "userIsDeniedWith403AndServiceNotCalled()",
+        "result": "FAIL",
+        "failure": "java.lang.AssertionError: Status expected:<403> but was:<500>"
+      },
+      {
+        "test": "administratorStillGets200()",
+        "result": "PASS",
+        "failure": null
+      },
+      {
+        "test": "existingPostPermissionErrorIsPreserved()",
+        "result": "PASS",
+        "failure": null
+      }
+    ],
+    "raw_xml_sha256": "7f1f32d76577cbf905c2a32d7ec8d49befac9dcb742c1a422bb086ba45f2f4d0"
+  },
+  "after": {
+    "tests": 5,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "cases": [
+      {
+        "test": "validationStillGets400()",
+        "result": "PASS",
+        "failure": null
+      },
+      {
+        "test": "realInternalErrorStillGets500WithoutExceptionDetails()",
+        "result": "PASS",
+        "failure": null
+      },
+      {
+        "test": "userIsDeniedWith403AndServiceNotCalled()",
+        "result": "PASS",
+        "failure": null
+      },
+      {
+        "test": "administratorStillGets200()",
+        "result": "PASS",
+        "failure": null
+      },
+      {
+        "test": "existingPostPermissionErrorIsPreserved()",
+        "result": "PASS",
+        "failure": null
+      }
+    ],
+    "raw_xml_sha256": "a00c713fe158fface6b9874b1c4353bedc0c7c555b96419863ea35927dc67077"
+  },
+  "source_sha256": {
+    "src/main/java/com/boardfullstack/global/exception/GlobalExceptionHandler.java": "a8a1ec6c3c8aa4152b374bf80f8ccf8cbce7af958fc0151dae7ae62adfbf3dc4",
+    "src/test/java/com/boardfullstack/global/exception/AccessDeniedRegressionTest.java": "4dfdfd4ec903b2ba8fc5c21d86f89118fb4a36eedc8a89cde92996ab989eaf9b"
+  }
+}
